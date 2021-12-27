@@ -1,6 +1,11 @@
+# dependencies
+node_modules
 
 # .v4p backup files
 *~.xml
+
+# Vue generate
+dist
 
 # Dynamic plugins .dll
 bin/

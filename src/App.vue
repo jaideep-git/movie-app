@@ -1,10 +1,8 @@
 <template>
 	<div id="app">
         <Navbar/>
-        <div class="container">
-            <router-view/>
-        </div>
-	</div>
+        <router-view/>
+    </div>
 </template>
 
 <script>
@@ -20,7 +18,13 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap');
 body{
     background-color: #141414;
+    color: white;
+    
+}
+.star{
+    color: #FD7014;
 }
 </style>

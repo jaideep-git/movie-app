@@ -1,13 +1,18 @@
 <template>
-	<div class="container" id="app">
-		<router-view/>
+	<div id="app">
+        <Navbar/>
+        <div class="container">
+            <router-view/>
+        </div>
 	</div>
 </template>
 
 <script>
 import M from "materialize-css";
+import Navbar from './components/Navbar.vue';
 
 export default {
+    components: { Navbar },
 	mounted() {
 		M.AutoInit();
 	},
@@ -15,9 +20,7 @@ export default {
 </script>
 
 <style>
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+body{
+    background-color: #141414;
 }
 </style>

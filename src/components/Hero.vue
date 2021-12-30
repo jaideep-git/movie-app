@@ -8,8 +8,8 @@
                 <h1>{{featured.title}}</h1>
                 <div class="movie-info">
                     <h5><i class="fas fa-star star"></i>{{featured.vote_average}}</h5>
-                    <h5 v-if="yearStart">{{yearStart}}</h5>
-                    <h5> 1h 37min</h5>
+                    <h5>{{yearStart}}</h5>
+                    <h5>{{featured.runtime | runtime}}</h5>
                 </div>
                 <div class="movie-story">
                     <p>{{featured.overview | truncate(200, '...')}}</p>
@@ -33,6 +33,11 @@ export default {
         backdropPath(){
             return "https://image.tmdb.org/t/p/original" + this.featured.backdrop_path;
         },
+        yearStart(){
+            const date = this.featured.release_date;
+            return date.split('-')[0];
+            
+        }
     },
     filters: {
         truncate: function (text, length, suffix) {
@@ -42,7 +47,23 @@ export default {
                 return text;
             }
         },
-    }
+        runtime: function (minutes) {
+  // seconds
+  const seconds = minutes * 60;
+  let secondsLeft = seconds;
+
+  // hours
+  const hours = Math.floor(secondsLeft / 3600);
+  secondsLeft = secondsLeft % 3600;
+
+  // mins
+  const mins = Math.floor(secondsLeft / 60);
+  secondsLeft = secondsLeft % 60;
+
+  return `${hours ? hours + 'h' : ''} ${mins}min`;
+}
+    
+}
 }
 </script>
 

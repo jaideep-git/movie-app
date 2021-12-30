@@ -42,16 +42,18 @@ data(){
     },
 async mounted(){
     try{
-        const movieData = axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=a93f8793bb3827d67a7363fc0fff2ec2`)
-        const showData = axios.get(`https://api.themoviedb.org/3/trending/tv/day?api_key=a93f8793bb3827d67a7363fc0fff2ec2`)
-        const random = await movieData
-        const movieResult = await movieData
-        const showResult = await showData
-        this.featured = random.data.results[Math.floor(Math.random()*random.data.results.length)]
-        this.trendingMovies = movieResult.data.results
-        this.trendingShows = showResult.data.results
+        const getTrendingMovies = axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=a93f8793bb3827d67a7363fc0fff2ec2`)
+        const getTrendingShows = axios.get(`https://api.themoviedb.org/3/trending/tv/day?api_key=a93f8793bb3827d67a7363fc0fff2ec2`)
+        const trendingMovies = await getTrendingMovies
+        const trendingShows = await getTrendingShows
+        const randomId= trendingMovies.data.results[Math.floor(Math.random()*trendingMovies.data.results.length)]
+        const getMovie = axios.get(`https://api.themoviedb.org/3/movie/${randomId.id}?api_key=a93f8793bb3827d67a7363fc0fff2ec2&language=en-US`)
+        const randomMovie = await getMovie
+        this.featured = randomMovie.data
+        this.trendingMovies = trendingMovies.data.results
+        this.trendingShows = trendingShows.data.results
         console.log(this.trendingShows);
-        console.log(this.featured)
+        console.log(this.featured);
     }catch(error){
         console.log(error)
     }

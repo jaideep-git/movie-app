@@ -1,10 +1,15 @@
 <template>
-	<h1>This is movie page</h1>
+	<div>
+		<h1>This is movie page</h1>
+		<Moviecard/>
+	</div>
 </template>
 
 <script>
+import Moviecard from '../components/Moviecard.vue'
 export default {
-	name:'Movie'
+	name:'Movie',
+	components:{Moviecard}
 }
 </script>
 

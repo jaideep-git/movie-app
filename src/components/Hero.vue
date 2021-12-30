@@ -1,21 +1,18 @@
 <template>
     <section>
         <div class="hero">
-            <img src="../assets/hero.png" alt="">
+            <img 
+            :src="backdropPath" alt="">
             <div class="black-overlay"></div>
             <div class="hero-info">
-                <h1>Venom: Let There Be Carnage</h1>
+                <h1>{{featured.title}}</h1>
                 <div class="movie-info">
-                    <h5><i class="fas fa-star star"></i>7.3</h5>
-                    <h5>2021</h5>
+                    <h5><i class="fas fa-star star"></i>{{featured.vote_average}}</h5>
+                    <h5 v-if="yearStart">{{yearStart}}</h5>
                     <h5> 1h 37min</h5>
                 </div>
                 <div class="movie-story">
-                    <p>
-                        After finding a host body in investigative reporter Eddie Brock, the alien 
-                        symbiote must face a new enemy, Carnage, the alter ego of serial killer 
-                        Cletus Kasady.
-                    </p>
+                    <p>{{featured.overview | truncate(200, '...')}}</p>
                 </div>
                 <button><i class="fa fa-play"> </i> Watch Trailer</button>
             </div>
@@ -26,33 +23,52 @@
 
 <script>
 export default {
-    name:'Hero'
+    name:'Hero',
+    props:{
+        featured:{
+            required:true,
+        }
+    },
+    computed:{
+        backdropPath(){
+            return "https://image.tmdb.org/t/p/original" + this.featured.backdrop_path;
+        },
+    },
+    filters: {
+        truncate: function (text, length, suffix) {
+            if (text.length > length) {
+                return text.substring(0, length) + suffix;
+            } else {
+                return text;
+            }
+        },
+    }
 }
 </script>
 
-<style>
+<style scoped>
 .hero{
     color: white;
     width:100%;
-    height:40rem;
+    height:45rem;
     display: flex;
     flex-direction: column;
 }
 .hero img{
-    object-fit: cover;
+    object-fit:cover;
     width:100%;
     height:100%;
 }
 .black-overlay{
     position: absolute;
     z-index: 9;
-    height:40rem;
+    height:45rem;
     width: 100%;
     background-color:rgba(0,0,0,0.7);
 }
 
 .hero-info{
-    margin: 5rem 0 0 3rem;
+    margin: 10rem 0 0 3rem;
     z-index: 10;
     position: absolute;
 }

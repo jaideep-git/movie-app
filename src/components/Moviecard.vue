@@ -41,4 +41,7 @@ h6{
 .rating{
     color:#AAA3A3;
 }
+.star{
+    margin-right:9px;
+}
 </style>

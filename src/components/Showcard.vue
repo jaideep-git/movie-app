@@ -25,7 +25,7 @@ export default {
 <style scoped>
 .movie-card {
     width: 250px;
-    padding: 5px;
+    padding:5px;
 }
 img{
     width:100%;
@@ -40,5 +40,8 @@ h6{
 }
 .rating{
     color:#AAA3A3;
+}
+.star{
+    margin-right:9px;
 }
 </style>

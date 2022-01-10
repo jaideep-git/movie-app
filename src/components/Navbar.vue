@@ -18,13 +18,13 @@
             type="text"
             placeholder="Search"
             v-model="searchInput">
-            <router-link :to="{ name: 'Search', params: { name: this.searchInput } }"><button @click="clear" ><svg xmlns="http://www.w3.org/2000/svg" width="13.688" height="14.625" viewBox="0 0 13.688 14.625"><path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M13.527,13.566,9.72,9.462a6.067,6.067,0,0,0,1.194-3.636A5.649,5.649,0,0,0,5.457,0,5.653,5.653,0,0,0,0,5.829a5.649,5.649,0,0,0,5.457,5.826,5.229,5.229,0,0,0,3.44-1.3l3.782,4.078a.566.566,0,0,0,.424.194.559.559,0,0,0,.4-.171A.661.661,0,0,0,13.527,13.566ZM5.457,10.4a4.124,4.124,0,0,1-3.03-1.34A4.707,4.707,0,0,1,1.173,5.829,4.694,4.694,0,0,1,2.427,2.6a4.095,4.095,0,0,1,6.06,0A4.707,4.707,0,0,1,9.742,5.829,4.694,4.694,0,0,1,8.487,9.062,4.125,4.125,0,0,1,5.457,10.4Z" transform="translate(0 0)"/></svg></button></router-link>
+            <router-link :to="{ name: 'Search', params: { name: this.searchInput } }"><button v-on:click="clear" ><svg xmlns="http://www.w3.org/2000/svg" width="13.688" height="14.625" viewBox="0 0 13.688 14.625"><path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M13.527,13.566,9.72,9.462a6.067,6.067,0,0,0,1.194-3.636A5.649,5.649,0,0,0,5.457,0,5.653,5.653,0,0,0,0,5.829a5.649,5.649,0,0,0,5.457,5.826,5.229,5.229,0,0,0,3.44-1.3l3.782,4.078a.566.566,0,0,0,.424.194.559.559,0,0,0,.4-.171A.661.661,0,0,0,13.527,13.566ZM5.457,10.4a4.124,4.124,0,0,1-3.03-1.34A4.707,4.707,0,0,1,1.173,5.829,4.694,4.694,0,0,1,2.427,2.6a4.095,4.095,0,0,1,6.06,0A4.707,4.707,0,0,1,9.742,5.829,4.694,4.694,0,0,1,8.487,9.062,4.125,4.125,0,0,1,5.457,10.4Z" transform="translate(0 0)"/></svg></button></router-link>
         </form>
     </nav>
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
     data(){
         return{
@@ -32,10 +32,16 @@ export default {
         }
     },
     methods:{
+        async getSearch(){
+            const getSearchItems = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US&page=1&query=${this.searchInput}`)
+            this.$parent.searchResults=getSearchItems.data.results
+            console.log(this.$parent.searchResults)
+        },
         clear(){
-            this.$parent.searchResults = []
+            this.$parent.searchResults=[];
+            this.getSearch();
         }
-    }
+    },
 }
 </script>
 

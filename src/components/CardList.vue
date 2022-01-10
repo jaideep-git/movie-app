@@ -30,6 +30,7 @@ data(){
             "slidesToScroll": 6,
             "initialSlide": 0,
             "swipeToSlide":true,
+            "draggable": true,
             "swipe":true,
             "touchMove":true
             },

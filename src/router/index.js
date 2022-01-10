@@ -24,6 +24,7 @@ const routes = [
   {
     path: '/Search/:name?',
     name: 'Search',
+    props: { name: "" },
     component: () => import('../views/Search.vue')
   },
 

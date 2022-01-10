@@ -26,7 +26,6 @@ export default {
 				{ type: "tv", title: "Mystery", genreId: 9648 },
 				{ type: "tv", title: "War & Politics", genreId: 10768 },
 			],
-
 		}
 	}
 	

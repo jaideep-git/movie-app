@@ -12,9 +12,19 @@ const routes = [
   }
   ,
   {
-    path: '/Movie',
-    name: 'Movie',
-    component: () => import('../views/Movie.vue')
+    path: '/Movies',
+    name: 'Movies',
+    component: () => import('../views/Movies.vue')
+  },
+  {
+    path: '/Shows',
+    name: 'Shows',
+    component: () => import('../views/Shows.vue')
+  },
+  {
+    path: '/Search/:name?',
+    name: 'Search',
+    component: () => import('../views/Search.vue')
   },
 
 ]

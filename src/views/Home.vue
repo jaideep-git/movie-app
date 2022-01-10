@@ -8,7 +8,7 @@
             </VueSlickCarousel>
             <h4>Trending Shows <span class="link"> Explore All</span></h4>
             <VueSlickCarousel v-bind="settings" v-if="this.$parent.trendingShows.length">
-                <Showcard :key="show.id" v-for="show in this.$parent.trendingShows"  :show="show" />
+                <Moviecard :key="show.id" v-for="show in this.$parent.trendingShows"  :movie="show" />
             </VueSlickCarousel>
         </div>
     </div>
@@ -17,13 +17,12 @@
 <script>
 import Hero from '../components/Hero.vue'
 import Moviecard from '../components/Moviecard.vue'
-import Showcard from '../components/Showcard.vue'
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 export default {
-components: { Hero,Moviecard, VueSlickCarousel,Showcard},
+components: { Hero,Moviecard, VueSlickCarousel},
 name:'Home',
 data(){
     return {
@@ -46,7 +45,7 @@ data(){
 h4{
     font-family: Montserrat;
     font-size:25px;
-    margin:3rem 0;
+    margin:2rem 0;
 }
 .link{
     font-size: 13px;

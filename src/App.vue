@@ -23,7 +23,8 @@ export default {
             featured:{},
             randomMovie:{},
             randomShow:{},
-            searchResults:[]
+            searchResults:[],
+            movie:{}
         }
     },
 	async mounted() {

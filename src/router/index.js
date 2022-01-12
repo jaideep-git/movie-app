@@ -27,6 +27,16 @@ const routes = [
     props: { name: "" },
     component: () => import('../views/Search.vue')
   },
+  {
+    path: '/Movie/:id?',
+    name: 'Movie',
+    component: () => import('../views/MoviePage.vue')
+  },
+  {
+    path: '/Show/:id?',
+    name: 'Show',
+    component: () => import('../views/ShowPage.vue')
+  },
 
 ]
 

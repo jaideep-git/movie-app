@@ -75,13 +75,15 @@ export default {
         await this.getShow();
         await this.socialMedia();
         await this.getCast();
-        await this.getSimilarMovies()
+        await this.getSimilarMovies();
+        
     },
     methods:{
         async getShow(){
             const getShowDetails = await axios.get(`https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
             this.item = getShowDetails.data
             console.log(this.item)
+            window.scrollTo(0, 0);
         },
         async socialMedia(){
             const getExternalIds = await axios.get(`https://api.themoviedb.org/3/tv/${this.$route.params.id}/external_ids?api_key=37ed43a4f8eaa2abd75f9283692947bc`)

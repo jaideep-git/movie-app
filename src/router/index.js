@@ -37,6 +37,11 @@ const routes = [
     name: 'Show',
     component: () => import('../views/ShowPage.vue')
   },
+  {
+    path: '/Person/:id?',
+    name: 'Person',
+    component: () => import('../views/Person.vue')
+  },
 
 ]
 

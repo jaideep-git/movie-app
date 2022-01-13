@@ -99,6 +99,7 @@ export default {
             const getMovieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
             this.item = getMovieDetails.data
             console.log(this.item)
+            window.scrollTo(0, 0);
         },
         async socialMedia(){
             const getExternalIds = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/external_ids?api_key=37ed43a4f8eaa2abd75f9283692947bc`)

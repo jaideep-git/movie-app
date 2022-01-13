@@ -1,5 +1,5 @@
 <template>
-    <div class="movie-card">
+    <div class="movie-card" v-if="this.movie.poster_path || this.movie.profile_path">
         <img 
         :src="posterPath" alt="" @click="goToPage">
         <h5 class="movie-name">{{movie.title || movie.name || movie.known_for}}</h5>
@@ -36,8 +36,10 @@ export default {
         goToPage(){
             if(this.movie.title){
                 this.$router.push({name:"Movie", params:{id:this.movie.id}})
-            }else{
+            }else if(this.movie.first_air_date){
                 this.$router.push({name:"Show", params:{id:this.movie.id}})
+            }else{
+                this.$router.push({name:"Person", params:{id:this.movie.id}})
             }
         }
     }

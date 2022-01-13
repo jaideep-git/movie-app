@@ -1,7 +1,7 @@
 <template>
     <div class="movie-card">
         <img 
-        :src="posterPath" alt="" @click="goToPage">
+        :src="posterPath" alt="" @click="getMovie">
         <h5 class="movie-name">{{movie.title || movie.name || movie.known_for}}</h5>
         <h6><i v-if="this.movie.vote_average" class="fas fa-star star"> </i><span class="rating">{{movie.vote_average}}</span><span class="spacer"><span v-if="this.movie.vote_average" class="space">|</span></span> <span class="rating"> {{yearStart || this.movie.known_for_department}}</span></h6>
     </div>
@@ -33,7 +33,7 @@ export default {
         }
     },
     methods: {
-        goToPage(){
+        getMovie(){
             if(this.movie.title){
                 this.$router.push({name:"Movie", params:{id:this.movie.id}})
             }else{

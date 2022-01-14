@@ -2,70 +2,89 @@
     <div>
         <Hero :featured="item"/>
         <section class="container">
-            <article class=" row">
-                <div class="movie col l3">
-                    <img 
-                    :src="posterPath"  
-                    alt=""
-                    class="movie-img">
-                </div>
-                <div class="col l8">
-                    <h4>Storyline</h4>
-                    <p>{{item.overview}}</p>
-                    <div class="movie-info">
-                        <div class="labels">
-                            <label>Released</label>
-                            <label>Runtime</label>
-                            <label>Genre</label>
-                            <label>Language</label>
-                            <label>Budget</label>
-                            <label>Revenue</label>
-                            <label>Production</label>
-                            <div class="icons">
-                                <a :href="`https://www.facebook.com/${socialMediaLinks.facebook_id}`" target="_blank"><i class="fab fa-facebook-f icon"></i></a>
-                                <a :href="`https://www.instagram.com/${socialMediaLinks.instagram_id}`" target="_blank"><i class="fab fa-instagram icon"></i></a>
-                                <a :href="`https://www.twitter.com/${socialMediaLinks.twitter_id}`" target="_blank"><i class="fab fa-twitter icon"></i></a>
-                                <a :href="`https://www.imdb.com/title/${item.imdb_id}`" target="_blank" ><i class="fab fa-imdb icon"></i></a>
+            <Tab>
+                <TabItem title="Overview" >
+                    <article class="margin-top row">
+                        <div class="movie col l3">
+                            <img 
+                            :src="posterPath"  
+                            alt=""
+                            class="movie-img">
+                        </div>
+                        <div class="col l8">
+                            <h4>Storyline</h4>
+                            <p>{{item.overview}}</p>
+                            <div class="movie-info">
+                                <div class="labels">
+                                    <label>Released</label>
+                                    <label>Runtime</label>
+                                    <label>Genre</label>
+                                    <label>Language</label>
+                                    <label>Budget</label>
+                                    <label>Revenue</label>
+                                    <label>Production</label>
+                                    <div class="icons">
+                                        <a :href="`https://www.facebook.com/${socialMediaLinks.facebook_id}`" target="_blank"><i class="fab fa-facebook-f icon"></i></a>
+                                        <a :href="`https://www.instagram.com/${socialMediaLinks.instagram_id}`" target="_blank"><i class="fab fa-instagram icon"></i></a>
+                                        <a :href="`https://www.twitter.com/${socialMediaLinks.twitter_id}`" target="_blank"><i class="fab fa-twitter icon"></i></a>
+                                        <a :href="`https://www.imdb.com/title/${item.imdb_id}`" target="_blank" ><i class="fab fa-imdb icon"></i></a>
+                                    </div>
+                                </div>
+                                <div class="value">
+                                    <p> {{item.release_date}}</p>
+                                    <p> {{item.runtime | runtime}}</p>
+                                    <p> {{formatGenres(item.genres)}}</p>
+                                    <p> {{fullLanguage(item.spoken_languages)}}</p>
+                                    <p> $ {{ item.budget | numberWithCommas }}</p>
+                                    <p> $ {{ item.revenue | numberWithCommas }}</p>
+                                    <p> {{ productionCompanies(item.production_companies)}}</p>
+                                </div>
                             </div>
-                            
                         </div>
-                        <div class="value">
-                            <p> {{item.release_date}}</p>
-                            <p> {{item.runtime | runtime}}</p>
-                            <p> {{formatGenres(item.genres)}}</p>
-                            <p> {{fullLanguage(item.spoken_languages)}}</p>
-                            <p> $ {{ item.budget | numberWithCommas }}</p>
-                            <p> $ {{ item.revenue | numberWithCommas }}</p>
-                            <p> {{ productionCompanies(item.production_companies)}}</p>
+                    </article>
+                    <article class="cast">
+                        <h4>Cast</h4>
+                        <ItemList :cast="cast"/>
+                    </article>
+                    <article class="cast">
+                        <h4>Related Movies</h4>
+                        <ItemList :cast="similarMovies"/>
+                    </article>
+                    </TabItem>
+                    <TabItem title="Photos"> 
+                        <h4>Backdrops</h4>
+                        <div class="images">
+                            <Images class="image" :key="image.folder_path" :item="image" v-for="image in backdropPhotos"/> 
                         </div>
-                    </div>
-                </div>
-            </article>
-            <article class="cast">
-                <h4>Cast</h4>
-                <ItemList :cast="cast"/>
-            </article>
-            <article class="cast">
-                <h4>Related Movies</h4>
-                <ItemList :cast="similarMovies"/>
-            </article>
+                        <h4 class="margin-top">Posters</h4>
+                        <div class="images">
+                            <Images :key="image.folder_path" :item="image" v-for="image in posterPhotos" /> 
+                        </div>
+                    </TabItem>
+                </Tab>
+            
         </section>
     </div>
 </template>
 
 <script>
 import Hero from '../components/Hero.vue'
+import Tab from '../components/Tab.vue'
+import Images from '../components/Images.vue'
+import TabItem from '../components/TabItem.vue'
 import ItemList from '../components/ItemList.vue'
 import axios from 'axios'
 export default {
     name:"Movie",
-    components: {Hero,ItemList},
+    components: {Hero,ItemList,TabItem,Tab,Images},
     data(){
         return{
             item:{},
             socialMediaLinks:{},
             cast:[],
-            similarMovies:{}
+            similarMovies:{},
+            posterPhotos:[],
+            backdropPhotos:[]
         }
     },
     computed: {
@@ -96,7 +115,9 @@ export default {
     },
     methods:{
         async getMovie(){
-            const getMovieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
+            const getMovieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=37ed43a4f8eaa2abd75f9283692947bc&append_to_response=images,videos`)
+            this.posterPhotos = getMovieDetails.data.images.posters
+            this.backdropPhotos = getMovieDetails.data.images.backdrops
             this.item = getMovieDetails.data
             console.log(this.item)
             window.scrollTo(0, 0);
@@ -112,7 +133,7 @@ export default {
             console.log(this.cast)
         },
         async getSimilarMovies(){
-            const similarMovies = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/similar?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
+            const similarMovies = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/recommendations?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
             this.similarMovies = similarMovies.data.results
             console.log(this.similarMovies)
         },
@@ -134,12 +155,19 @@ export default {
     width: 100%;
     height: 90%;
 }
+.margin-top{
+    margin-top:5rem;
+}
 .movie{
     margin-right: 2rem;
 }
 .movie-info{
     display: flex;
     gap: 2rem;
+}
+.images{
+    display: flex;
+    flex-wrap: wrap;
 }
 h4{
     font-size: 27px;
@@ -177,5 +205,8 @@ h4{
     font-size:27px;
     margin:0 0 2rem 0;
     font-weight: 500;
+}
+.image{
+    margin: 1rem 0;
 }
 </style>

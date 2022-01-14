@@ -15,7 +15,7 @@
                 <div class="movie-story">
                     <p>{{featured.overview | truncate(200, '...')}}</p>
                 </div>
-                <button><i class="fa fa-play"> </i> Watch Trailer</button>
+                <a :href="youtubeVideoPath"><button><i class="fa fa-play"> </i> Watch Trailer</button></a> 
                 <button id="infoBtn"><i class="fas fa-info-circle"></i> More Info</button>
             </div>
         </div>
@@ -39,6 +39,9 @@ export default {
             const date = this.featured.release_date ? this.featured.release_date : this.featured.first_air_date;
             return date.split('-')[0];
             
+        },
+        youtubeVideoPath() {
+            return "https://www.youtube.com/embed/" + this.featured.videos.results[0].key
         }
     },
     filters: {

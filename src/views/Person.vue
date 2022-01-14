@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="container">
-            <article class=" row">
+            <article class="margin-bottom row">
                 <div class="movie col l3">
                     <img 
                     :src="posterPath"  
@@ -32,29 +32,44 @@
                     </div>
                 </div>
             </article>
-            <article class="margin-top col" v-if="tvCredits.length || movieCredits.length">
-                <h4>Known For </h4>
-                <div class="known-for">
-                    <ItemCard class="movie-card" :key="item.id" v-for="item in tvCredits" :movie="item"/>
-                    <ItemCard class="movie-card"  :key="item.id" v-for="item in movieCredits" :movie="item"/>
-                </div>
-            </article>
+            <div class="tab-container">
+                <Tab>
+                    <TabItem title="Known For" >
+                        <article class="margin-top col" v-if="credits.length">
+                            <div class="known-for">
+                                <Moviecard class="movie-card" :key="item.id" v-for="item in credits" :movie="item"/>
+                            </div>
+                        </article>
+                    </TabItem>
+                    <TabItem title="Photos"> 
+                        <article class="margin-top col" v-if="personImages.length">
+                            <div class="known-for">
+                                <Images :key="image.folder_path" :item="image" v-for="image in personImages"/> 
+                            </div>
+                        </article>
+                    </TabItem>
+                </Tab>
+            </div>
         </section>
     </div>
 </template>
 
 <script>
-import ItemCard from '../components/ItemCard.vue'
+import Moviecard from '../components/Moviecard.vue'
+import Tab from '../components/Tab.vue'
+import Images from '../components/Images.vue'
+import TabItem from '../components/TabItem.vue'
 import axios from 'axios'
 export default {
     name:"Movie",
-    components: {ItemCard},
+    components: {Moviecard,Tab,TabItem,Images},
     data(){
         return{
             item:{},
-            tvCredits:{},
+            credits:{},
             movieCredits:{},
             socialMediaLinks:{},
+            personImages:[]
         }
     },
     computed: {
@@ -65,7 +80,9 @@ export default {
     async activated(){
         await this.getPerson();
         await this.getCredits();
-        await this.socialMedia()
+        await this.socialMedia();
+        await this.images()
+        
     },
     methods:{
         async getPerson(){
@@ -75,17 +92,20 @@ export default {
             window.scrollTo(0, 0);
         },
         async getCredits(){
-            const getTvCredits = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}/tv_credits?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
-            const getMovieCredits = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}/movie_credits?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
-            this.movieCredits= getMovieCredits.data.crew
-            this.tvCredits = getTvCredits.data.crew
+            const getCredit = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}/combined_credits?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
+            this.credits = getCredit.data.cast
             console.log(this.movieCredits)
-            console.log(this.tvCredits)
+            console.log(this.credits)
         },
         async socialMedia(){
             const getExternalIds = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}/external_ids?api_key=37ed43a4f8eaa2abd75f9283692947bc`)
             this.socialMediaLinks = getExternalIds.data
             console.log(this.socialMediaLinks)
+        },
+        async images(){
+            const getImages = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}/images?api_key=37ed43a4f8eaa2abd75f9283692947bc`)
+            this.personImages = getImages.data.profiles
+            console.log(this.personImages)
         },
         
     },
@@ -93,6 +113,9 @@ export default {
 </script>
 
 <style scoped>
+.margin-bottom {
+    margin-bottom:2rem;
+}
 .movie-img{
     width: 100%;
     height: 90%;
@@ -111,6 +134,10 @@ h4{
     font-size: 27px;
     margin-top:1rem;
 }
+.centre{
+    display: flex;
+    justify-content: center;
+}
 p{
     font-size:16px;
 }
@@ -123,7 +150,10 @@ label{
     color:white;
 }
 .margin-top{
-    margin-top:6rem
+    margin-top:3rem
+}
+.tab-container{
+    margin-top:2rem;
 }
 .labels{
     display: flex;

@@ -35,7 +35,6 @@ export default {
             const getSearchItems = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US&page=1&query=${this.searchInput}`)
             this.$parent.searchResults=getSearchItems.data.results
             this.searchInput=""
-            console.log(this.$parent.searchResults)
         },
         clear(){
             this.$parent.searchResults=[];
@@ -55,6 +54,10 @@ nav {
     display: flex;
     justify-content: space-between;
     border-bottom: 0.1px solid #807B7B;
+    position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+    z-index: 999;
 }
 ul{
 	display: flex;

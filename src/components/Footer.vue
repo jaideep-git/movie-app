@@ -2,9 +2,9 @@
     <footer class="container">
         <h4>© 2021 Jaideep</h4>
         <div class="icons">  
-            <i class="fab fa-twitter icon"></i>
+            <a href="https://twitter.com/JaideepHey"><i class="fab fa-twitter icon"></i></a>
             <i class="fab fa-linkedin-in icon"></i>
-            <i class="fab fa-github icon"></i>
+            <a href="https://github.com/jaideep-git"><i class="fab fa-github icon"></i></a>
             <i class="fab fa-google icon"></i>
         </div>
     </footer>

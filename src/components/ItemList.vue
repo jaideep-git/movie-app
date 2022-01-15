@@ -33,6 +33,8 @@ data(){
             },
         }
     },
+    methods: {
+    }
         
 }
 </script>

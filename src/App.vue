@@ -1,9 +1,7 @@
 <template>
 	<div id="app">
         <Navbar/>
-        <keep-alive>
-            <router-view/>
-        </keep-alive>
+            <router-view :key="$route.path"/>
         <Footer/>
     </div>
 </template>
@@ -15,7 +13,7 @@ import Footer from './components/Footer.vue';
 import axios from 'axios'
 
 export default {
-    components: { Navbar, Footer },
+    components: { Navbar, Footer},
     data(){
         return {
             trendingShows:[],
@@ -24,7 +22,7 @@ export default {
             randomMovie:{},
             randomShow:{},
             searchResults:[],
-            movie:{}
+            movie:{},
         }
     },
 	async mounted() {
@@ -47,7 +45,7 @@ export default {
             this.randomShow = getRandomShow.data
         }catch(error){
             console.log(error)
-    }
+        }
         M.AutoInit();
 	}
 };

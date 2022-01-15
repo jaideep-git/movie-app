@@ -27,6 +27,9 @@ export default {
 				{ type: "tv", title: "War & Politics", genreId: 10768 },
 			],
 		}
+	},
+	mounted() {
+		window.scrollTo(0, 0);
 	}
 	
 }

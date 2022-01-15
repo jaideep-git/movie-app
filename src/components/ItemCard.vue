@@ -36,10 +36,8 @@ export default {
         goToPage(){
             if(this.movie.title){
                 this.$router.push({name:"Movie", params:{id:this.movie.id}})
-                location.reload();
             }else if(this.movie.first_air_date){
                 this.$router.push({name:"Show", params:{id:this.movie.id}})
-                location.reload();
             }else{
                 this.$router.push({name:"Person", params:{id:this.movie.id}})
             }

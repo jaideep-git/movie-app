@@ -64,12 +64,12 @@ export default {
     name:"Movie",
     components: {Moviecard,Tab,TabItem,Images},
     data(){
-        return{
+        return{ 
             item:{},
             credits:{},
             movieCredits:{},
             socialMediaLinks:{},
-            personImages:[]
+            personImages:[],
         }
     },
     computed: {
@@ -77,7 +77,7 @@ export default {
             return "https://image.tmdb.org/t/p/w500/" + this.item.profile_path;
         },
     },
-    async activated(){
+    async mounted(){
         await this.getPerson();
         await this.getCredits();
         await this.socialMedia();
@@ -88,24 +88,20 @@ export default {
         async getPerson(){
             const getPersonDetails = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
             this.item = getPersonDetails.data
-            console.log(this.item)
             window.scrollTo(0, 0);
         },
         async getCredits(){
             const getCredit = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}/combined_credits?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
             this.credits = getCredit.data.cast
-            console.log(this.movieCredits)
             console.log(this.credits)
         },
         async socialMedia(){
             const getExternalIds = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}/external_ids?api_key=37ed43a4f8eaa2abd75f9283692947bc`)
             this.socialMediaLinks = getExternalIds.data
-            console.log(this.socialMediaLinks)
         },
         async images(){
             const getImages = await axios.get(`https://api.themoviedb.org/3/person/${this.$route.params.id}/images?api_key=37ed43a4f8eaa2abd75f9283692947bc`)
             this.personImages = getImages.data.profiles
-            console.log(this.personImages)
         },
         
     },

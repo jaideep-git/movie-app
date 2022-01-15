@@ -28,10 +28,11 @@ export default {
 				{ type: "movie", title: "Romance", genreId: 10749 },
 				{ type: "movie", title: "Science Fiction", genreId: 878 },
 			],
-
 		}
+	},
+	activated() {
+		window.scrollTo(0, 0);
 	}
-	
 }
 </script>
 

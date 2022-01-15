@@ -5,7 +5,7 @@
             :src="backdropPath" alt="">
             <div class="black-overlay"></div>
             <div class="hero-info">
-                <h1>{{featured.title  || featured.name }}</h1>
+                <h1 @click="goToPage">{{featured.title  || featured.name }}</h1>
                 <div class="movie-info">
                     <h5><i class="fas fa-star star"></i>{{featured.vote_average}}</h5>
                     <h5>{{yearStart}}</h5>
@@ -15,8 +15,8 @@
                 <div class="movie-story">
                     <p>{{featured.overview | truncate(200, '...')}}</p>
                 </div>
-                <a :href="youtubeVideoPath"><button><i class="fa fa-play"> </i> Watch Trailer</button></a> 
-                <button id="infoBtn"><i class="fas fa-info-circle"></i> More Info</button>
+                <a><button id="show-modal" @click="showModal = true"><i class="fa fa-play"> </i> Watch Trailer</button></a> 
+                <Modal class="modal-margin" v-if="showModal" @close="showModal = false" :videoLink="youtubeVideoPath"/>
             </div>
         </div>
     </section>
@@ -24,11 +24,18 @@
 </template>
 
 <script>
+import Modal from '../components/Modal.vue'
 export default {
     name:'Hero',
+    components: {Modal},
     props:{
         featured:{
             required:true,
+        }
+    },
+    data(){
+        return{
+            showModal: false
         }
     },
     computed:{
@@ -41,7 +48,16 @@ export default {
             
         },
         youtubeVideoPath() {
-            return "https://www.youtube.com/embed/" + this.featured.videos.results[0].key
+            return `https://www.youtube.com/embed/${this.featured.videos.results[0].key}?autoplay=1`
+        },
+    },
+    methods: {
+        goToPage(){
+            if(this.featured.title){
+                this.$router.push({name:"Movie", params:{id:this.featured.id}})
+            }else{
+                this.$router.push({name:"Show", params:{id:this.featured.id}})
+            }
         }
     },
     filters: {
@@ -69,6 +85,9 @@ export default {
 <style scoped>
 section{
     margin-bottom:5rem;
+}
+.modal-margin{
+    margin-top: 1.5rem;
 }
 .hero{
     color: white;
@@ -101,7 +120,8 @@ h1{
     margin:0;
     margin-bottom:20px;
     font-size:35px !important;
-    font-weight: 600
+    font-weight: 600;
+    cursor: pointer;
 }
 h5{
     font-family:Montserrat;

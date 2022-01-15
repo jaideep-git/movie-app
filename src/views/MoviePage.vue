@@ -37,7 +37,7 @@
                                     <p> {{fullLanguage(item.spoken_languages)}}</p>
                                     <p> $ {{ item.budget | numberWithCommas }}</p>
                                     <p> $ {{ item.revenue | numberWithCommas }}</p>
-                                    <p> {{ productionCompanies(item.production_companies)}}</p>
+                                    <p> {{productionCompanies(item.production_companies)}}</p>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,6 @@
                         </div>
                     </TabItem>
                 </Tab>
-            
         </section>
     </div>
 </template>
@@ -105,9 +104,8 @@ export default {
         numberWithCommas: function (number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
-        
     },
-    async activated(){
+    async mounted(){
         await this.getMovie();
         await this.socialMedia();
         await this.getCast();
@@ -119,23 +117,19 @@ export default {
             this.posterPhotos = getMovieDetails.data.images.posters
             this.backdropPhotos = getMovieDetails.data.images.backdrops
             this.item = getMovieDetails.data
-            console.log(this.item)
             window.scrollTo(0, 0);
         },
         async socialMedia(){
             const getExternalIds = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/external_ids?api_key=37ed43a4f8eaa2abd75f9283692947bc`)
             this.socialMediaLinks = getExternalIds.data
-            console.log(this.socialMediaLinks)
         },
         async getCast(){
             const credits = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
             this.cast = credits.data.cast
-            console.log(this.cast)
         },
         async getSimilarMovies(){
             const similarMovies = await axios.get(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/recommendations?api_key=37ed43a4f8eaa2abd75f9283692947bc&language=en-US`)
             this.similarMovies = similarMovies.data.results
-            console.log(this.similarMovies)
         },
         formatGenres (genres) {
             return genres.map(genre => `${genre.name}`).join(', ');

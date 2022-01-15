@@ -9,3 +9,5 @@ dist
 
 # Dynamic plugins .dll
 bin/
+
+dist

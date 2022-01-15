@@ -45,8 +45,6 @@ data(){
         async getList(){
                 const getLists = await axios.get(`https://api.themoviedb.org/3/discover/${this.media.type}?api_key=a93f8793bb3827d67a7363fc0fff2ec2&include_adult=false&with_genres=${this.media.genreId}`)
                 this.listItems = getLists.data.results
-                console.log(this.listItems)
-            
         },
         
     }

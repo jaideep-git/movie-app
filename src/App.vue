@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+    <div id="app">
         <Navbar/>
             <router-view :key="$route.path"/>
         <Footer/>

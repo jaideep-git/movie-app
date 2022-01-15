@@ -83,7 +83,7 @@ export default {
             cast:[],
             similarMovies:{},
             posterPhotos:[],
-            backdropPhotos:[]
+            backdropPhotos:[],
         }
     },
     computed: {

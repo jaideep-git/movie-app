@@ -1,7 +1,10 @@
 <template>
 	<div id="app">
+        <Loading v-if="loading"/>
         <Navbar/>
+        <transition name="router-anim" enter-active-class="animated fadeIn">
             <router-view :key="$route.path"/>
+        </transition>
         <Footer/>
     </div>
 </template>
@@ -9,11 +12,12 @@
 <script>
 import M from "materialize-css";
 import Navbar from './components/Navbar.vue';
+import Loading from './components/Loading.vue';
 import Footer from './components/Footer.vue';
 import axios from 'axios'
 
 export default {
-    components: { Navbar, Footer},
+    components: { Navbar, Footer,Loading,},
     data(){
         return {
             trendingShows:[],
@@ -23,9 +27,14 @@ export default {
             randomShow:{},
             searchResults:[],
             movie:{},
+            loading:false
         }
     },
 	async mounted() {
+        this.loading = true
+        setTimeout(() => {
+            this.loading=false
+        }, 700);
         try{
             //fetching data from API
             const getTrendingMovies = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=a93f8793bb3827d67a7363fc0fff2ec2&append_to_response=images,videos`)
@@ -47,12 +56,13 @@ export default {
             console.log(error)
         }
         M.AutoInit();
-	}
+	},
 };
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap');
+@import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 body{
     background-color: #141414;
     color: white;

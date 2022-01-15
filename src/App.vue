@@ -1,7 +1,6 @@
 <template>
-	<div id="app">
-        <Loading v-if="loading"/>
     <div id="app">
+    	<Loading v-if="loading"/>
         <Navbar/>
         <transition name="router-anim" enter-active-class="animated fadeIn">
             <router-view :key="$route.path"/>

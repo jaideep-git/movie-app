@@ -2,11 +2,11 @@
     <div>
         <Hero :featured="this.$parent.featured"/>
         <div class="container">
-            <h4>Trending Movies <span class="link"> Explore All</span> </h4>
+            <h4>Trending Movies <router-link to="/Movies"> <span class="link"> Explore All</span></router-link></h4>
             <VueSlickCarousel v-bind="settings" v-if="this.$parent.trendingMovies.length">
                 <Moviecard :key="movie.id" v-for="movie in this.$parent.trendingMovies"  :movie="movie" />
             </VueSlickCarousel>
-            <h4>Trending Shows <span class="link"> Explore All</span></h4>
+            <h4>Trending Shows<router-link to="/Shows"> <span class="link"> Explore All</span></router-link></h4>
             <VueSlickCarousel v-bind="settings" v-if="this.$parent.trendingShows.length">
                 <Moviecard :key="show.id" v-for="show in this.$parent.trendingShows"  :movie="show" />
             </VueSlickCarousel>

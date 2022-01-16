@@ -53,7 +53,7 @@
                     <TabItem title="Photos"> 
                         <h4>Backdrops</h4>
                         <div class="images">
-                            <Images class="image" :key="image.folder_path" :item="image" v-for="image in backdropPhotos"/> 
+                            <Images :key="image.folder_path" :item="image" v-for="image in backdropPhotos"/> 
                         </div>
                         <h4 class="margin-top">Posters</h4>
                         <div class="images">
@@ -166,9 +166,7 @@ label{
 .images{
     display: flex;
     flex-wrap: wrap;
-}
-.image{
-    margin: 1rem 0;
+    gap:1rem;
 }
 .margin-top{
     margin-top:5rem;

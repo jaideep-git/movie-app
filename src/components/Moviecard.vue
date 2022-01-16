@@ -1,7 +1,7 @@
 <template>
     <div class="movie-card" v-if="this.movie.poster_path || this.movie.profile_path">
         <img 
-        :src="posterPath" alt="" @click="goToPage">
+        class="image" :src="posterPath" alt="" @click="goToPage">
         <h5 class="movie-name">{{movie.title || movie.name || movie.known_for}}</h5>
         <h6><i v-if="this.movie.vote_average" class="fas fa-star star"> </i><span class="rating">{{movie.vote_average}}</span><span class="spacer"><span v-if="this.movie.vote_average" class="space">|</span></span> <span class="rating"> {{yearStart}}</span></h6>
     </div>
@@ -51,7 +51,7 @@ export default {
     width: 250px;
     padding:5px
 }
-img{
+.image{
     width:100%;
 }
 .movie-name{

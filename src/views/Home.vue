@@ -6,7 +6,7 @@
             <VueSlickCarousel v-bind="settings" v-if="this.$parent.trendingMovies.length">
                 <Moviecard :key="movie.id" v-for="movie in this.$parent.trendingMovies"  :movie="movie" />
             </VueSlickCarousel>
-            <h4>Trending Shows<router-link to="/Shows"> <span class="link"> Explore All</span></router-link></h4>
+            <h4 class="margin-top">Trending Shows<router-link to="/Shows"> <span class="link"> Explore All</span></router-link></h4>
             <VueSlickCarousel v-bind="settings" v-if="this.$parent.trendingShows.length">
                 <Moviecard :key="show.id" v-for="show in this.$parent.trendingShows"  :movie="show" />
             </VueSlickCarousel>
@@ -48,10 +48,15 @@ data(){
 h4{
     font-family: Montserrat;
     font-size:25px;
-    margin:2rem 0;
+    font-weight:600px;
+    margin:2rem 0 2rem 0;
 }
 .link{
     font-size: 13px;
     color: #FD7014;
+    margin-left:10px ;
+}
+.margin-top{
+    margin-top:4rem;
 }
 </style>

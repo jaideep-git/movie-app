@@ -54,7 +54,7 @@
                     <TabItem title="Photos"> 
                         <h4>Backdrops</h4>
                         <div class="images">
-                            <Images class="image" :key="image.folder_path" :item="image" v-for="image in backdropPhotos"/> 
+                            <Images :key="image.folder_path" :item="image" v-for="image in backdropPhotos"/> 
                         </div>
                         <h4 class="margin-top">Posters</h4>
                         <div class="images">
@@ -162,6 +162,7 @@ export default {
 .images{
     display: flex;
     flex-wrap: wrap;
+    gap:1rem
 }
 h4{
     font-size: 27px;

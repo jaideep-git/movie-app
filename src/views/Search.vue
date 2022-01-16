@@ -23,6 +23,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     margin-top: 1rem;
+    gap: 1rem;
 }
 .container {
     margin-top:3rem

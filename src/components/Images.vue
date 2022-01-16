@@ -1,7 +1,7 @@
 <template>
     <div class="movie-card">
         <img 
-        :src="imagePath" alt="">
+        class="image" :src="imagePath" alt="">
     </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     width: 300px;
     padding:5px
 }
-img{
+.image{
     width:100%;
 }
 </style>

@@ -87,7 +87,7 @@ section{
     margin-bottom:5rem;
 }
 .modal-margin{
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
 }
 .hero{
     color: white;
@@ -136,7 +136,7 @@ h5{
     width:70%;
     font-family:Montserrat;
     font-size:17px;
-    margin-bottom:2rem;
+    margin-bottom:1.5rem;
 }
 button{
     background-color:white !important;

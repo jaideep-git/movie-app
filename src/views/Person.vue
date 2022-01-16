@@ -32,25 +32,25 @@
                     </div>
                 </div>
             </article>
-            <div class="tab-container">
+        </section>
+        <div class="tab-container">
                 <Tab>
                     <TabItem title="Known For" >
                         <article class="margin-top col" v-if="credits.length">
                             <div class="known-for">
-                                <Moviecard class="movie-card" :key="item.id" v-for="item in credits" :movie="item"/>
+                                <Moviecard :key="item.id" v-for="item in credits" :movie="item"/>
                             </div>
                         </article>
                     </TabItem>
                     <TabItem title="Photos"> 
                         <article class="margin-top col" v-if="personImages.length">
-                            <div class="known-for">
+                            <div class="images-flex">
                                 <Images :key="image.folder_path" :item="image" v-for="image in personImages"/> 
                             </div>
                         </article>
                     </TabItem>
                 </Tab>
             </div>
-        </section>
     </div>
 </template>
 
@@ -108,6 +108,15 @@ export default {
 </script>
 
 <style scoped>
+.images-flex{
+    width: 100% ;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:stretch;
+    margin-top: 2rem;
+    padding: 0 2rem;
+    gap:1rem
+}
 .margin-bottom {
     margin-bottom:5rem;
 }
@@ -121,9 +130,6 @@ export default {
 .movie-info{
     display: flex;
     gap: 2rem;
-}
-.movie-card{
-    margin: 1.3rem 0;
 }
 h4{
     font-size: 27px;
@@ -149,6 +155,7 @@ label{
 }
 .tab-container{
     margin-top:2rem;
+    margin: 0;
 }
 .labels{
     display: flex;
@@ -164,9 +171,12 @@ a{
     color: white !important;
 }
 .known-for{
+    padding: 0 2rem;
+    width: 100% ;
     display: flex;
     flex-wrap: wrap;
     margin-top: 2rem;
+    gap: 1rem;
 }
 h4{
     font-family: Montserrat;

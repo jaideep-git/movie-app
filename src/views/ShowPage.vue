@@ -45,7 +45,7 @@
                         <h4>Cast</h4>
                         <ItemList :cast="cast"/>
                     </article>
-                    <article class="cast">
+                    <article class="cast" v-if="similarMovies.length>0">
                         <h4>Related Shows</h4>
                         <ItemList :cast="similarMovies"/>
                     </article>

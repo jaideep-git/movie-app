@@ -42,11 +42,11 @@
                             </div>
                         </div>
                     </article>
-                    <article class="cast">
+                    <article class="cast" v-if="cast.length>0">
                         <h4>Cast</h4>
                         <ItemList :cast="cast"/>
                     </article>
-                    <article class="cast">
+                    <article class="cast" v-if="similarMovies.length>0">
                         <h4>Related Movies</h4>
                         <ItemList :cast="similarMovies"/>
                     </article>
